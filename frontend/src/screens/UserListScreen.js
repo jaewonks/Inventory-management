@@ -1,7 +1,16 @@
 import { getUsers } from "../api.js";
 import { getUserInfo } from "../localStorage.js";
+import { toggleStatusButton } from "../utils.js";
 
 const UserListScreen = {
+after_render: async () => {
+  const statusButtons = document.getElementsByClassName('status-button');
+  Array.from(statusButtons).map((statusButton) => {
+    statusButton.addEventListener("click", () => {
+      toggleStatusButton(statusButton)
+    })
+  });
+},  
 render: async () => {
   // 로그인이 되어있지 않으면 페이지에 접근핳 수 없디.
   const { token } = getUserInfo();
@@ -9,7 +18,7 @@ render: async () => {
     document.location.hash = '/signin';
   } 
   const users = await getUsers();
-  console.log(users);
+  //console.log(users);
   return `
   <div class='dashboard'>
     <div class='dashboard-content'>
@@ -17,19 +26,19 @@ render: async () => {
       <div class='order-list'>
         <table>
           <thead>
-            <th>ID</th>
+            <th>No.</th>
             <th>Email</th>
             <th>Name</th>
-            <th class='statusTh'>Status</th>
+            <th class='status-th'>Status</th>
             <th class='tr-action'>ACTION</th>
           </thead>
           <tbody>
-          ${users.map((user) => 
+          ${users.map((user, index) => 
             `<tr>
-              <td>${user.user_id}</td>
+              <td>${index + 1}</td>
               <td>${user.user_email}</td>
               <td>${user.user_name}</td>
-              <td><button class='statusBtn'>${user.user_status}<button></td>
+              <td><button class='status-button'>${user.user_status}<button></td>
               <td>
               <button id='${user.user_id}' class='edit-button'>Details</button>
               <button id='${user.user_id}' class='delete-button'>Delete</button>

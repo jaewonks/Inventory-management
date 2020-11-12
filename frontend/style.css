@@ -251,11 +251,16 @@ td {
 .delete-button {
   background-color: #c8d6fa;
 }
-.statusTh {
-  width: 6.7rem;
+.status-th {
+  width: 8rem;
 }
-.statusBtn {
+.status-button {
   background-color: #f5dc9a;
+  width: 5.9rem;
+}
+.clicked {
+  background-color: #c0c0c0;
+  color: #f08040;
 }
 /* Stock Form */
 .stock-form-container {

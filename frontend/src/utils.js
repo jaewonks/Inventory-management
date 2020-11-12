@@ -38,3 +38,12 @@ export const showMessage = (message, callback) => {
   }
 };
 
+export const toggleStatusButton = (statusButton) => {
+  if(statusButton.textContent === "Active") {
+    statusButton.textContent = "Inactive";
+    statusButton.classList.add('clicked');
+  } else {
+    statusButton.textContent = "Active"
+    statusButton.classList.remove('clicked');
+  }
+};

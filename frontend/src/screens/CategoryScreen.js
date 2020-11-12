@@ -1,6 +1,6 @@
 import { createCategory, deleteCategory, getCategories } from "../api.js";
 import { getUserInfo } from "../localStorage.js";
-import { hideLoading, showLoading, showMessage, rerender } from "../utils.js";
+import { hideLoading, showLoading, showMessage, rerender, toggleStatusButton } from "../utils.js";
 import { CategoryEditScreen } from "./CategoryEditScreen.js";
 
 const CategoryScreen = {
@@ -18,6 +18,13 @@ after_render: async () => {
     } else {
       history.go(0);
     };
+  });
+
+  const statusButtons = document.getElementsByClassName('status-button');
+  Array.from(statusButtons).map((statusButton) => {
+    statusButton.addEventListener("click", () => {
+      toggleStatusButton(statusButton)
+    })
   });
 
   const editButtons = document.getElementsByClassName('edit-button');
@@ -64,17 +71,17 @@ render: async () => {
       <div class='order-list'>
         <table>
           <thead>
-            <th>ID</th>
+            <th>No.</th>
             <th>Name</th>
-            <th class='statusTh'>Status</th>
+            <th class='status-th'>Status</th>
             <th class='tr-action'>ACTION</th>
           </thead>
           <tbody>
-          ${categories.map((category) => 
+          ${categories.map((category, index) => 
             `<tr>
-              <td>${category.category_id}</td>
+              <td>${index + 1}</td>
               <td data-editable >${category.category_name}</td>
-              <td><button class='statusBtn'>${category.category_status}</button></td>
+              <td><button class='status-button'>${category.category_status}</button></td>
               <td>
               <button id='${category.category_id}' class='edit-button'>Edit</button>
               <button id='${category.category_id}' class='delete-button'>Delete</button>

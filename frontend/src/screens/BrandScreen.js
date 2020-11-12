@@ -1,6 +1,6 @@
 import { deleteBrand, getBrands } from "../api.js";
 import { getUserInfo } from "../localStorage.js";
-import { hideLoading, rerender, showLoading, showMessage } from "../utils.js";
+import { hideLoading, rerender, showLoading, showMessage, toggleStatusButton } from "../utils.js";
 import { BrandAddScreen } from "./BrandAddScreen.js";
 import { BrandEditScreen } from "./BrandEditScreen.js";
 
@@ -9,6 +9,13 @@ after_render: async () => {
   document.getElementById('add_brand')
   .addEventListener('click', () => {
     BrandAddScreen();
+  });
+
+  const statusButtons = document.getElementsByClassName('status-button');
+  Array.from(statusButtons).map((statusButton) => {
+    statusButton.addEventListener("click", () => {
+      toggleStatusButton(statusButton)
+    })
   });
 
   const editButtons = document.getElementsByClassName('edit-button');
@@ -52,19 +59,19 @@ render: async () => {
       <div class='order-list'>
         <table>
           <thead>
-            <th>ID</th>
+            <th>No.</th>
             <th>Category</th>
             <th>Brand</th>
-            <th class='statusTh'>Status</th>
+            <th class='status-th'>Status</th>
             <th class='tr-action'>ACTION</th>
           </thead>
           <tbody>
-          ${brands.map((brand) => 
+          ${brands.map((brand, index) => 
             `<tr>
-              <td>${brand.brand_id}</td>
+              <td>${index + 1}</td>
               <td>${brand.category_name}</td>
               <td>${brand.brand_name}</td>
-              <td><button class='statusBtn'>${brand.brand_status}</button></td>
+              <td><button class='status-button'>${brand.brand_status}</button></td>
               <td>
               <button id='${brand.brand_id}' class='edit-button'>Edit</button>
               <button id='${brand.brand_id}' class='delete-button'>Delete</button>

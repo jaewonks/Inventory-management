@@ -1,6 +1,6 @@
 import { getStocks, deleteStock } from "../api.js";
 import { getUserInfo } from "../localStorage.js";
-import { hideLoading, rerender, showLoading, showMessage } from "../utils.js";
+import { hideLoading, rerender, showLoading, showMessage, toggleStatusButton } from "../utils.js";
 import { StockDetailScreen } from "./StockDetailScreen.js";
 
 const StockListScreen = {
@@ -8,6 +8,13 @@ after_render: async () => {
   document.getElementById('add_stock')
   .addEventListener('click', () => {
   document.location.hash = '/stockadd';
+});
+
+const statusButtons = document.getElementsByClassName('status-button');
+Array.from(statusButtons).map((statusButton) => {
+  statusButton.addEventListener("click", () => {
+    toggleStatusButton(statusButton)
+  })
 });
 
 const detailButtons = document.getElementsByClassName('detail-button');
@@ -58,7 +65,7 @@ render: async () => {
       <div class='order-list'>
         <table>
           <thead>
-            <th>ID</th>
+            <th>No.</th>
             <th>Code</th>
             <th>Item No.</th>
             <th>Name</th>
@@ -66,13 +73,13 @@ render: async () => {
             <th>Brand</th>
             <th>Qty</th>
             <th>Location</th>
-            <th class='statusTh'>Status</th>
+            <th class='status-th'>Status</th>
             <th class='tr-action'>ACTION</th>
           </thead>
           <tbody>
-          ${stocks.map((stock) => 
+          ${stocks.map((stock, index) => 
             `<tr>
-              <td>${stock.stock_id}</td>
+              <td>${index + 1}</td>
               <td>${stock.stock_no}</td>
               <td>${stock.stock_pno}</td>
               <td>${stock.stock_name}</td>
@@ -80,7 +87,7 @@ render: async () => {
               <td>${stock.category_name}</td>
               <td>${stock.stock_qty}</td>
               <td>Location</td>
-              <td><button class='statusBtn'>${stock.stock_status}</button></td>
+              <td><button class='status-button'>${stock.stock_status}</button></td>
               <td>
               <button id='${stock.stock_id}' class='detail-button'>Details</button>
               <button id='${stock.stock_id}' class='edit-button'>Edit</button>
