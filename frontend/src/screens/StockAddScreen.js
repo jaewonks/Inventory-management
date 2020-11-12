@@ -1,4 +1,4 @@
-import { createStock } from "../api.js";
+import { createStock, getBrands, getCategories } from "../api.js";
 import { getUserInfo } from "../localStorage.js";
 import { hideLoading, showLoading, showMessage } from "../utils.js";
 
@@ -34,11 +34,13 @@ const StockAddScreen = {
       }
     }) 
   },
-  render: () => {
+  render: async () => {
     const { token } = getUserInfo();
     if(!token) {
       document.location.hash = '/signin';
     } 
+    const brands = await getBrands();
+
     return `
     <div class="stock-form-container">
     <form id="stock-add-form">
@@ -63,12 +65,20 @@ const StockAddScreen = {
           <input type="text" name="desc" id="desc" value="desc" />
         </li>
         <li>
-          <label for="category">category</label>
-          <input type="number" name="category" id="category" value="category" />
+          <label for='category'>Category</label>
+          <select name='category' id='category'>
+          ${brands.map((brands) => {
+            return `<option value='${brands.category_id}'>${brands.category_name}</option>`
+          })}
+          </select>
         </li>
         <li>
-          <label for="brand">Brand</label>
-          <input type="number" name="brand" id="brand" value="brand" />
+          <label for='brand'>Brand</label>
+          <select name='brand' id='brand''>
+          ${brands.map((brand) => {
+            return `<option value='${brand.brand_id}'>${brand.brand_name}</option>`
+          })}
+          </select>
         </li>
         <li>
           <label for="qty">QTY</label>

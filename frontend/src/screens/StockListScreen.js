@@ -77,7 +77,7 @@ render: async () => {
             <th class='tr-action'>ACTION</th>
           </thead>
           <tbody>
-          ${stocks.map((stock, index) => 
+          ${stocks.slice(0).reverse().map((stock, index) => 
             `<tr>
               <td>${index + 1}</td>
               <td>${stock.stock_no}</td>
