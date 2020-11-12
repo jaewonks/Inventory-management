@@ -1,4 +1,4 @@
-import { getBrands, getCategories, getStock, updateStock } from "../api.js";
+import { getBrands, getStock, updateStock } from "../api.js";
 import { getUserInfo } from "../localStorage.js";
 import { hideLoading, showLoading, showMessage, parseRequestUrl } from "../utils.js";
 
@@ -42,7 +42,6 @@ render: async () => {
       document.location.hash = '/';
     }
   const request = parseRequestUrl();  
-  const categories = await getCategories();
   const brands = await getBrands();  
   const stock = await getStock(request.id);
   const puchasedDate = stock[0].stock_buy_at.substring(0,10);
@@ -74,8 +73,10 @@ render: async () => {
         <li>
           <label for="category">category</label>
           <select name='category' id='category'>
-          ${categories.map((category) => `
-          <option value='${category.category_id}' id='${category.category_id}'>${category.category_name}</option>
+          ${brands.map((brand) => `
+          <option value='${brand.category_id}' id='${brand.category_id}'
+          ${brand.category_id === stock[0].category_id ? 'selected':''}
+          >${brand.category_name}</option>
           `).join('\n')}
           </select>
         </li>
@@ -83,7 +84,9 @@ render: async () => {
           <label for="brand">Brand</label>
           <select name='brand' id='brand'>
           ${brands.map((brand) => `
-          <option value='${brand.brand_id}' id='${brand.brand_id}'>${brand.brand_name}</option>
+          <option value='${brand.brand_id}' id='${brand.brand_id}'
+          ${brand.brand_id === stock[0].brand_id ? 'selected':''}
+          >${brand.brand_name}</option>
           `).join('\n')}
           </select>
         </li>

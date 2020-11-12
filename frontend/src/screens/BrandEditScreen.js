@@ -29,8 +29,11 @@ export const BrandEditScreen = async (id, callback) => {
               <label for='category'>Category</label>
               <select name='category' id='category'>
               ${categories.map((category) => `
-              <option value='${category.category_id}' id='${category.category_id}'>${category.category_name}</option>
+              <option value='${category.category_id}' id='${category.category_id}'
+              ${category.category_id === brand[0].category_id ? 'selected':''}
+              >${category.category_name}</option>
               `).join('\n')}
+              }
               </select>
             </li>
               <li>
@@ -42,7 +45,7 @@ export const BrandEditScreen = async (id, callback) => {
               </li>
             </ul>
           </form>
-          <button id='message-overlay-close-button' class='closeBtn'>Close</button>
+          <button id='message-overlay-close-button' class='close-button'>Close</button>
         </div>
       </div>
     </div>

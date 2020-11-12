@@ -3,7 +3,9 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import config from './config.js';
 import userRouter from './routers/userRouter.js';
-import stockRouter from './routers/stockRouter.js'
+import stockRouter from './routers/stockRouter.js';
+import uploadRouter from './routers/uploadRouter.js';
+import path from 'path';
 import mysql from 'mysql';
 
 export const db = mysql.createConnection({
@@ -25,5 +27,6 @@ app.use(bodyParser.json());
 
 app.use('/api/users', userRouter);
 app.use('/api/stocks', stockRouter);
+app.use('/api/uploads', uploadRouter);
 
 app.listen(config.PORT, () => {console.log(`Listening on http://localhost:${config.PORT}`)});

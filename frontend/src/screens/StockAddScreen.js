@@ -67,8 +67,8 @@ const StockAddScreen = {
         <li>
           <label for='category'>Category</label>
           <select name='category' id='category'>
-          ${brands.map((brands) => {
-            return `<option value='${brands.category_id}'>${brands.category_name}</option>`
+          ${brands.map((brand) => {
+            return `<option value='${brand.category_id}'>${brand.category_name}</option>`
           })}
           </select>
         </li>

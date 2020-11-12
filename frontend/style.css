@@ -116,7 +116,7 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   height: 100%;
 }
 .form-items {
@@ -138,7 +138,7 @@ footer {
 .form-container h1 {
   font-size: 2.5rem;
 }
-.closeBtn {
+.close-button {
   border-radius: 0.5rem;
   width: 31rem;
   margin: 0 2rem;
@@ -232,6 +232,16 @@ td {
 .headtitle {
   display: flex;
   justify-content: space-between;
+}
+.headtitle ul {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0;
+  width: 17rem;
+}
+.headtitle ul li:first-child >
+button:first-child {
+  background-color: #82a2f3;
 }
 .headtitle button {
   margin: 1.5rem;

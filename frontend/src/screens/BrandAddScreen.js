@@ -34,9 +34,9 @@ export const BrandAddScreen = async (message, callback) => {
               <li>
                 <button type='submit' class='primary'>Add</button>
               </li>
-                <button id='message-overlay-close-button' >Close</button>
             </ul>
           </form>
+          <button id='message-overlay-close-button' class='close-button'>Close</button>
         </div>
       </div>
     </div>

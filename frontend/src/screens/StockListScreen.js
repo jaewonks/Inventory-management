@@ -2,12 +2,19 @@ import { getStocks, deleteStock } from "../api.js";
 import { getUserInfo } from "../localStorage.js";
 import { hideLoading, rerender, showLoading, showMessage, toggleStatusButton } from "../utils.js";
 import { StockDetailScreen } from "./StockDetailScreen.js";
+import { StockUploadScreen } from "./StockUploadScreen.js";
 
 const StockListScreen = {
 after_render: async () => {
-  document.getElementById('add_stock')
-  .addEventListener('click', () => {
-  document.location.hash = '/stockadd';
+
+document.getElementById('add_stock')
+.addEventListener('click', () => {
+document.location.hash = '/stockadd';
+});
+
+document.getElementById('upload-file')
+.addEventListener('click', () => {
+  StockUploadScreen();
 });
 
 const statusButtons = document.getElementsByClassName('status-button');
@@ -60,7 +67,10 @@ render: async () => {
     <div class='dashboard-content'>
       <div class='headtitle'>
         <h3>Stock List</h3>
-        <button id='add_stock'>ADD</button>
+        <ul>
+          <li><button id='upload-file'>Excel</button></li>
+          <li><button id='add_stock'>ADD</button></li>
+       </ul>
       </div>
       <div class='order-list'>
         <table>
@@ -83,8 +93,8 @@ render: async () => {
               <td>${stock.stock_no}</td>
               <td>${stock.stock_pno}</td>
               <td>${stock.stock_name}</td>
-              <td>${stock.brand_name}</td>
               <td>${stock.category_name}</td>
+              <td>${stock.brand_name}</td>
               <td>${stock.stock_qty}</td>
               <td>Location</td>
               <td><button class='status-button'>${stock.stock_status}</button></td>
